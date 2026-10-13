@@ -3,14 +3,15 @@
 
   var root = document.documentElement;
   var page = document.body.dataset.page;
-  var MIN_CHAPTER = 169;
-  var MAX_CHAPTER = 193;
+  var originalBook = document.body.dataset.book === "original";
+  var MIN_CHAPTER = originalBook ? Number(document.body.dataset.minChapter) : 169;
+  var MAX_CHAPTER = originalBook ? Number(document.body.dataset.maxChapter) : 193;
   var DEFAULT_SIZE = 22;
   var MIN_SIZE = 18;
   var MAX_SIZE = 28;
   var themeKey = "jueji-theme";
   var fontKey = "jueji-font-size";
-  var readingKey = "jueji-reading";
+  var readingKey = originalBook ? "jueji-original-reading" : "jueji-reading";
 
   function readStorage(key) {
     try { return window.localStorage.getItem(key); } catch (error) { return null; }
@@ -90,9 +91,9 @@
     var resume = document.getElementById("resume-link");
     var resumeLabel = document.getElementById("resume-label");
     if (savedReading && resume && resumeLabel) {
-      resume.href = "chapters/chapter-" + savedReading.chapter + ".html";
-      resumeLabel.textContent = "续读第 " + savedReading.chapter + " 回 · " + Math.round(savedReading.progress) + "%";
-      resume.setAttribute("aria-label", "继续阅读第 " + savedReading.chapter + " 回，" + savedReading.title + "，上次进度 " + Math.round(savedReading.progress) + "%");
+      resume.href = (originalBook ? "original" : "chapters") + "/chapter-" + savedReading.chapter + ".html";
+      resumeLabel.textContent = originalBook ? "续读 · " + savedReading.title : "续读第 " + savedReading.chapter + " 回 · " + Math.round(savedReading.progress) + "%";
+      resume.setAttribute("aria-label", "继续阅读，" + savedReading.title + "，上次进度 " + Math.round(savedReading.progress) + "%");
       resume.hidden = false;
     }
 
@@ -113,13 +114,14 @@
       var query = normalized(search ? search.value : "");
       var visible = 0;
       chapterCards.forEach(function (card) {
-        var searchable = normalized("第" + card.dataset.number + "回" + card.dataset.title);
+        var searchable = normalized(card.dataset.search || "第" + card.dataset.number + "回" + card.dataset.title);
         var matches = (stage === "all" || card.dataset.stage === stage) && searchable.indexOf(query) !== -1;
         card.hidden = !matches;
         if (matches) visible += 1;
       });
       filters.forEach(function (button) { button.setAttribute("aria-pressed", String(button.dataset.stageFilter === stage)); });
-      if (count) count.textContent = query || stage !== "all" ? "显示 " + visible + " / " + chapterCards.length + " 回" : "共 " + chapterCards.length + " 回";
+      var unit = originalBook ? " 篇" : " 回";
+      if (count) count.textContent = query || stage !== "all" ? "显示 " + visible + " / " + chapterCards.length + unit : "共 " + chapterCards.length + unit;
       if (empty) empty.hidden = visible !== 0;
     }
 

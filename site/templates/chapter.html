@@ -10,25 +10,25 @@
   <link rel="stylesheet" href="{{REL}}assets/styles.css">
   <script src="{{REL}}assets/app.js" defer></script>
 </head>
-<body data-page="chapter" data-chapter="{{NUMBER}}">
+<body data-page="chapter" data-chapter="{{NUMBER}}" data-book="{{BOOK_ID}}" data-min-chapter="{{MIN_CHAPTER}}" data-max-chapter="{{MAX_CHAPTER}}">
   <a class="skip-link" href="#main">跳至正文</a>
   <header class="site-header">
-    <a class="wordmark" href="{{REL}}index.html" aria-label="爵迹，返回首页"><span class="wordmark-symbol" aria-hidden="true">爵</span><span>爵迹<span class="wordmark-caption">亚斯蓝终篇</span></span></a>
-    <nav class="site-nav" aria-label="主要导航"><a href="{{REL}}index.html">书目</a><a href="{{REL}}outline.html">终篇大纲</a><a href="{{REL}}writing.html">写作技能</a></nav>
+    <a class="wordmark" href="{{REL}}{{BOOK_HOME}}" aria-label="爵迹，返回书目"><span class="wordmark-symbol" aria-hidden="true">爵</span><span>爵迹<span class="wordmark-caption">{{BOOK_CAPTION}}</span></span></a>
+    <nav class="site-nav" aria-label="主要导航"><a href="{{REL}}original.html"{{ORIGINAL_CURRENT}}>原文</a><a href="{{REL}}index.html">续篇</a><a href="{{REL}}outline.html">终篇大纲</a><a href="{{REL}}writing.html">写作技能</a></nav>
     <button class="theme-toggle js-only" id="theme-toggle" type="button" aria-label="切换为夜间阅读" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8a8.5 8.5 0 1 0 11.6 11.6Z"/></svg><span class="theme-label">夜读</span></button>
   </header>
 
   <div class="reader-layout">
     <aside class="toc-sidebar" aria-label="全篇目录">
-      <div class="toc-title"><a href="{{REL}}index.html#chapters">全篇书目</a><span>25 回</span></div>
+      <div class="toc-title"><a href="{{REL}}{{BOOK_HOME}}#chapters">全篇书目</a><span>{{CHAPTER_COUNT}} 篇</span></div>
       <button id="toc-toggle" class="toc-toggle js-only" type="button" aria-expanded="true" aria-controls="toc-panel"><span>展开篇目目录</span><span class="toc-toggle-mark" aria-hidden="true">＋</span></button>
       <div id="toc-panel" class="toc-panel">{{TOC}}</div>
-      <a class="toc-home" href="{{REL}}index.html">回到书首页 <span aria-hidden="true">↗</span></a>
+      <a class="toc-home" href="{{REL}}{{BOOK_HOME}}">回到书首页 <span aria-hidden="true">↗</span></a>
     </aside>
 
     <main id="main" class="reader-main">
       <article class="chapter-article" aria-labelledby="chapter-title">
-        <header class="chapter-header"><p class="eyebrow">ASLAN / 亚斯蓝终篇</p><p class="chapter-kicker">第 {{NUMBER}} 回</p><h1 id="chapter-title">{{TITLE}}</h1><p class="chapter-details"><span>{{WORDS}} 字</span><span>约 {{READ_TIME}} 分钟</span><span class="chapter-divider" aria-hidden="true">◇</span></p></header>
+        <header class="chapter-header"><p class="eyebrow">{{EDITION}}</p><p class="chapter-kicker">{{CHAPTER_LABEL}}</p><h1 id="chapter-title">{{TITLE}}</h1><p class="chapter-details"><span>{{WORDS}} 字</span><span>约 {{READ_TIME}} 分钟</span><span class="chapter-divider" aria-hidden="true">◇</span></p></header>
         <div class="reader-tools js-only" aria-label="阅读设置">
           <div class="font-controls" role="group" aria-label="正文字号"><span>字号</span><button id="font-minus" type="button" aria-label="减小正文字号">A−</button><button id="font-reset" type="button" aria-label="恢复默认正文字号">22</button><button id="font-plus" type="button" aria-label="增大正文字号">A＋</button></div>
           <div class="progress-info"><label for="reading-progress">本回进度</label><progress id="reading-progress" max="100" value="0">0%</progress><span id="progress-label" aria-live="off">0%</span></div>
@@ -41,6 +41,6 @@
     </main>
   </div>
 
-  <footer class="site-footer reader-footer"><p>爵迹 · 亚斯蓝终篇<span>非官方续篇</span></p><div><a href="https://github.com/kidrue/jueji" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span><span class="visually-hidden">，在新标签页打开</span></a><a href="#chapter-title">回到页首 ↑</a></div></footer>
+  <footer class="site-footer reader-footer"><p>{{BOOK_TITLE}}<span>{{BOOK_NOTE}}</span></p><div><a href="https://github.com/kidrue/jueji" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span><span class="visually-hidden">，在新标签页打开</span></a><a href="#chapter-title">回到页首 ↑</a></div></footer>
 </body>
 </html>

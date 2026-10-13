@@ -109,6 +109,8 @@ figure, h1, h2, h3, p { margin: 0; }
 .chapter-search-wrap input::placeholder { color: var(--muted); opacity: 1; }
 .has-js .chapter-count { display: block; margin-top: 14px; font-size: 10px; color: var(--muted); text-align: right; }
 .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; column-gap: 60px; margin-top: 8px; }
+.source-note { margin: 14px 0 24px; max-width: 680px; color: var(--muted); font-size: 12px; line-height: 1.9; }
+.original-preface .document-body { padding-top: 25px; font-size: 14px; overflow-wrap: anywhere; }
 .chapter-card { display: grid; grid-template-columns: 42px minmax(0, 1fr); column-gap: 14px; position: relative; padding: 22px 24px 22px 0; border-bottom: 1px solid var(--line); transition: border-color .2s; }
 .chapter-card::after { content: "↗"; position: absolute; right: 1px; top: 25px; color: var(--accent-ink); font-size: 16px; transition: transform .2s; }
 .chapter-card:hover { border-bottom-color: var(--accent); }

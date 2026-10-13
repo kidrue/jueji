@@ -1,6 +1,7 @@
 """Verify the published book, links, and safe document rendering."""
 
 import html
+import json
 import re
 import unittest
 import zipfile
@@ -36,7 +37,64 @@ class PageParser(HTMLParser):
         self.text.append(data)
 
 
+class OriginalTextParser(HTMLParser):
+    """Read only the source heading/body, excluding reader controls."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.capture = []
+        self.text = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag in {"meta", "link", "img", "input", "br", "hr"}:
+            return
+        selected = dict(attrs).get("id") in {"original-preface", "chapter-title", "chapter-body"}
+        self.capture.append(selected or bool(self.capture and self.capture[-1]))
+
+    def handle_endtag(self, tag):
+        if self.capture:
+            self.capture.pop()
+
+    def handle_data(self, data):
+        if self.capture and self.capture[-1]:
+            self.text.append(data)
+
+
 class PublishedSiteTests(unittest.TestCase):
+    def test_original_reader_has_all_source_entries_and_independent_routes(self):
+        page = DOCS / "original.html"
+        self.assertTrue(page.is_file(), "The original novel needs its own reading entry")
+        catalog = json.loads((DOCS / "original" / "catalog.json").read_text(encoding="utf-8"))
+        self.assertEqual(len(catalog["chapters"]), 158)
+        self.assertEqual(catalog["chapters"][0]["title"], "1.第1章：福泽镇上的神秘来客")
+        self.assertEqual(catalog["chapters"][-2]["title"], "第一百六十八回：银色琥珀")
+        self.assertEqual(catalog["chapters"][-1]["title"], "致《爵迹》读者")
+        self.assertEqual(catalog["author"], "郭敬明")
+        urls = [chapter["url"] for chapter in catalog["chapters"]]
+        self.assertEqual(len(set(urls)), 158, "Repeated source numbering must not overwrite a page")
+        for url in urls:
+            self.assertTrue((DOCS / url).is_file())
+        self.assertIn("original.html", (DOCS / "index.html").read_text(encoding="utf-8"))
+
+    def test_original_download_preserves_the_entire_source_text(self):
+        download = DOCS / "downloads" / "jueji-original.txt"
+        self.assertTrue(download.is_file(), "Provide the full original text for download")
+        self.assertEqual(download.read_bytes(), (ROOT / "site" / "texts" / "jueji.txt").read_bytes())
+
+    def test_original_pages_reconstruct_every_source_character_in_order(self):
+        page = DOCS / "original.html"
+        self.assertTrue(page.is_file(), "Build the original reader before checking source fidelity")
+        parser = OriginalTextParser()
+        parser.feed(page.read_text(encoding="utf-8"))
+        pieces = parser.text[:]
+        catalog = json.loads((DOCS / "original" / "catalog.json").read_text(encoding="utf-8"))
+        for chapter in catalog["chapters"]:
+            parser = OriginalTextParser()
+            parser.feed((DOCS / chapter["url"]).read_text(encoding="utf-8"))
+            pieces.extend(parser.text)
+        source = (ROOT / "site" / "texts" / "jueji.txt").read_text(encoding="utf-8")
+        self.assertEqual(re.sub(r"\s", "", "".join(pieces)), re.sub(r"\s", "", source),
+                         "Splitting glued headings must preserve every original character in order")
+
     def test_writing_skill_zip_is_reproducible_across_path_sorting_semantics(self):
         with TemporaryDirectory() as windows_dir, TemporaryDirectory() as posix_dir:
             windows_output = Path(windows_dir)

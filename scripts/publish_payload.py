@@ -9,7 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / ".work" / "github-manifest.json"
-DIRECTORIES = (".github", "scripts", "tests", "site", "docs", "skills", "续写")
+DIRECTORIES = (".github", "scripts", "tests", "site", "skills", "续写")
 ROOT_FILES = ("README.md", "AGENTS.md", ".gitignore")
 
 

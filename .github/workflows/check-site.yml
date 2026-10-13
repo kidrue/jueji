@@ -20,5 +20,3 @@ jobs:
         run: python scripts/build_site.py
       - name: Verify text and links
         run: python -m unittest discover -s tests -v
-      - name: Verify committed site is current
-        run: git diff --exit-code -- docs

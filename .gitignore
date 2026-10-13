@@ -1,5 +1,6 @@
 .work/
 .publish/
+docs/
 .agents/
 .codex/
 .aws/
