@@ -24,11 +24,13 @@ python -m http.server 8765 --directory docs
 
 打开 `http://localhost:8765/`。网站源文件在 `site/`，静态发布目录为 `docs/`。修改章节或模板后重新构建，提交新生成的页面。
 
-## GitHub Pages
+## 在线阅读与发布
 
 仓库：<https://github.com/kidrue/jueji>。
 
-在仓库 Settings → Pages 选择 **Deploy from a branch**，分支 **main**、目录 **/docs**。保存后 GitHub 自动发布并在后续推送时更新。默认地址为 `https://kidrue.github.io/jueji/`；站点使用相对路径，兼容该项目子目录。
+已经发布的静态阅读网站：[打开亚斯蓝终篇](https://rawcdn.githack.com/kidrue/jueji/fd358e09daaa65523bd33e8ef89759c038a4ff24/docs/index.html)。此地址由 GitHub 提交的静态文件通过 raw.githack.com CDN 提供，固定在作品发布版本；首次访问可能显示该服务的外部内容确认页。
+
+GitHub Pages 尚未启用。如果改用 Pages，在仓库 Settings → Pages 选择 **Deploy from a branch**，分支 **main**、目录 **/docs**。保存后 GitHub 自动发布并在后续推送时更新。启用后的默认地址为 `https://kidrue.github.io/jueji/`；站点使用相对路径，兼容该项目子目录。
 
 CI会重新构建、逐段校验25回原文完整性、检查内部链接与下载，并验证已提交的生成文件是否与源码同步。
 

@@ -6,7 +6,11 @@ import unittest
 import zipfile
 from html.parser import HTMLParser
 from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest import mock
 from urllib.parse import unquote, urlsplit
+
+from scripts.build_site import build
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -33,6 +37,20 @@ class PageParser(HTMLParser):
 
 
 class PublishedSiteTests(unittest.TestCase):
+    def test_writing_skill_zip_is_reproducible_across_path_sorting_semantics(self):
+        with TemporaryDirectory() as windows_dir, TemporaryDirectory() as posix_dir:
+            windows_output = Path(windows_dir)
+            posix_output = Path(posix_dir)
+            with mock.patch.object(Path, "__lt__", lambda left, right: left.as_posix().casefold() < right.as_posix().casefold()):
+                build(windows_output)
+            with mock.patch.object(Path, "__lt__", lambda left, right: left.as_posix() < right.as_posix()):
+                build(posix_output)
+            self.assertEqual(
+                (windows_output / "downloads" / "writing-skill.zip").read_bytes(),
+                (posix_output / "downloads" / "writing-skill.zip").read_bytes(),
+                "The complete skill ZIP must be identical for Windows and POSIX path ordering",
+            )
+
     def test_home_and_complete_catalog_exist(self):
         self.assertTrue((DOCS / "index.html").is_file(), "Build the static reading site first")
         page = (DOCS / "index.html").read_text(encoding="utf-8")

@@ -214,7 +214,7 @@ def build(output: Path) -> dict:
     shutil.copyfile(ROOT / "续写" / "爵迹-亚斯蓝终篇.md", downloads / "aslan-complete.md")
     shutil.copyfile(skill / "SKILL.md", downloads / "writing-skill.md")
     with zipfile.ZipFile(downloads / "writing-skill.zip", "w", compression=zipfile.ZIP_STORED) as package:
-        for path in sorted(skill.rglob("*")):
+        for path in sorted(skill.rglob("*"), key=lambda path: path.relative_to(skill).as_posix().casefold()):
             if path.is_file():
                 entry = zipfile.ZipInfo("lyrical-epic-fantasy-writing/" + path.relative_to(skill).as_posix(), (1980, 1, 1, 0, 0, 0))
                 entry.create_system = 3
