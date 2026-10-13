@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{DESCRIPTION}}">
+  <meta name="theme-color" content="#f4f1e8">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="icon" type="image/svg+xml" href="{{REL}}assets/cover.svg">
+  <link rel="stylesheet" href="{{REL}}assets/styles.css">
+  <script src="{{REL}}assets/app.js" defer></script>
+</head>
+<body data-page="document">
+  <a class="skip-link" href="#main">跳至正文</a>
+  <header class="site-header">
+    <a class="wordmark" href="{{REL}}index.html" aria-label="爵迹，返回首页"><span class="wordmark-symbol" aria-hidden="true">爵</span><span>爵迹<span class="wordmark-caption">亚斯蓝终篇</span></span></a>
+    <nav class="site-nav" aria-label="主要导航"><a href="{{REL}}index.html">书目</a><a href="{{REL}}outline.html">终篇大纲</a><a href="{{REL}}writing.html">写作技能</a></nav>
+    <button class="theme-toggle js-only" id="theme-toggle" type="button" aria-label="切换为夜间阅读" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8a8.5 8.5 0 1 0 11.6 11.6Z"/></svg><span class="theme-label">夜读</span></button>
+  </header>
+
+  <main id="main" class="document-main">
+    <header class="document-header"><a class="back-link" href="{{REL}}index.html">← 回到书目</a><p class="eyebrow">页外之页 / {{DOC_KIND}}</p><h1>{{TITLE}}</h1><p>供阅读与查阅的文字记录。</p></header>
+    <article class="document-body">{{BODY}}</article>
+    <details class="full-toc document-toc"><summary>翻阅全篇目录<span aria-hidden="true">＋</span></summary><div class="full-toc-content">{{TOC}}</div></details>
+    <div class="document-bottom"><a class="button button-ink" href="{{REL}}chapters/chapter-169.html">开始阅读<span aria-hidden="true">↗</span></a><a class="back-link" href="{{REL}}index.html#chapters">回到全篇书目 →</a></div>
+  </main>
+
+  <footer class="site-footer"><p>爵迹 · 亚斯蓝终篇<span>非官方续篇</span></p><div><a href="https://github.com/kidrue/jueji" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span><span class="visually-hidden">，在新标签页打开</span></a><a href="#main">回到页首 ↑</a></div></footer>
+</body>
+</html>

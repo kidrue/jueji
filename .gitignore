@@ -9,3 +9,5 @@ __pycache__/
 .env
 .env.*
 !.env.example
+幻城.txt
+爵迹.txt

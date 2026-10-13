@@ -1,0 +1,6 @@
+interface:
+  display_name: "中文抒情与群像奇幻写作"
+  short_description: "依据本地奇幻文本创作原创或续篇，保留两种写法，并每次先编写大纲"
+  default_prompt: "使用 $lyrical-epic-fantasy-writing 编写中文奇幻作品，先展示本次大纲，再直接完成正文。"
+policy:
+  allow_implicit_invocation: true

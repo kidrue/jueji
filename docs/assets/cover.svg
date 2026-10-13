@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="620" viewBox="0 0 520 620" fill="none">
+  <title>亚斯蓝终篇：门与雪</title>
+  <desc>暖白书页上，一座墨色高门由冷金线条勾勒，细雪落在门前的山影之间。</desc>
+  <rect width="520" height="620" fill="#eeeadf"/>
+  <rect x="24.5" y="24.5" width="471" height="571" stroke="#a29166" stroke-width=".8"/>
+  <rect x="32.5" y="32.5" width="455" height="555" stroke="#c8bfa7" stroke-width=".5"/>
+  <path d="M24 48V24h24m424 0h24v24M24 572v24h24m424 0h24v-24" stroke="#827049" stroke-width="1.1"/>
+  <path d="M260 53v26m-5-13 5-5 5 5-5 5-5-5Z" stroke="#988354" stroke-width=".8"/>
+  <path d="M113 518V227L260 91l147 136v291H113Z" fill="#28332e"/>
+  <path d="M113 518V227L260 91l147 136v291m-138-412v412M260 91v14" stroke="#a99561" stroke-width="1"/>
+  <path d="M136 518V237l124-115 124 115v281M149 518V243l111-103 111 103v275" stroke="#8c805b" stroke-width=".6"/>
+  <path d="M169 518V260l91-87 91 87v258H169Z" fill="#1b2823" stroke="#baa772" stroke-width=".9"/>
+  <path d="M181 518V269l79-76 79 76v249" stroke="#908156" stroke-width=".6"/>
+  <path d="M198 518V281l62-61 62 61v237H198Z" fill="#d7d6c7"/>
+  <path d="m198 281 62-61 62 61M207 518V285l53-52 53 52v233" stroke="#e9e5d4" stroke-width=".6"/>
+  <path d="M260 237v268M245 253v227M275 253v227M230 267v195M290 267v195" stroke="#f1eee2" stroke-width=".7"/>
+  <path d="M116 236h36m216 0h36M116 353h36m216 0h36M116 454h36m216 0h36" stroke="#8d805c" stroke-width=".6"/>
+  <path d="M64 450 135 424l72 63 53-22 66 5 70-65 60 45v94H64v-94Z" fill="#59625b"/>
+  <path d="m64 450 71-26 72 63 53-22 66 5 70-65 60 45" stroke="#d5cfb8" stroke-width=".8"/>
+  <path d="m48 486 105 27 71-17 98 11 76-42 74 38v41H48v-58Z" fill="#394a40"/>
+  <path d="m48 486 105 27 71-17 98 11 76-42 74 38" stroke="#bcb79d" stroke-width=".7"/>
+  <path d="m48 534 101-4 77 14 66-6 122-22 58 22v25H48v-29Z" fill="#26372e"/>
+  <path d="m48 534 101-4 77 14 66-6 122-22 58 22" stroke="#a89769" stroke-width=".7"/>
+  <path d="M204 554h112m-86 9h61m-44 8h28" stroke="#a9996f" stroke-width=".6"/>
+  <path d="M70 110h18m-9-9v18m358 34h12m-6-6v12M79 321h12m-6-6v12m348-27h14m-7-7v14" stroke="#a09169" stroke-width=".7"/>
+  <g fill="#9e9477">
+    <circle cx="153" cy="86" r="1"/><circle cx="363" cy="92" r="1.1"/><circle cx="69" cy="193" r="1.1"/>
+    <circle cx="443" cy="244" r="1"/><circle cx="90" cy="397" r="1"/><circle cx="457" cy="374" r="1.1"/>
+    <circle cx="188" cy="69" r=".7"/><circle cx="323" cy="63" r=".8"/><circle cx="419" cy="112" r=".8"/>
+    <circle cx="100" cy="149" r=".7"/><circle cx="454" cy="189" r=".8"/><circle cx="61" cy="266" r=".8"/>
+  </g>
+  <g fill="#dedac6">
+    <circle cx="166" cy="316" r="1.4"/><circle cx="303" cy="336" r="1.1"/><circle cx="370" cy="295" r="1.3"/>
+    <circle cx="143" cy="392" r="1.2"/><circle cx="277" cy="406" r="1.4"/><circle cx="364" cy="414" r="1"/>
+    <circle cx="186" cy="439" r="1"/><circle cx="231" cy="465" r="1.2"/><circle cx="331" cy="454" r="1.2"/>
+    <circle cx="110" cy="487" r="1"/><circle cx="389" cy="503" r="1.1"/><circle cx="245" cy="512" r=".9"/>
+    <circle cx="175" cy="534" r=".8"/><circle cx="322" cy="526" r=".8"/><circle cx="298" cy="302" r=".8"/>
+    <circle cx="129" cy="273" r=".7"/><circle cx="331" cy="382" r=".8"/><circle cx="205" cy="360" r=".7"/>
+  </g>
+  <path d="m260 578 4 4-4 4-4-4 4-4Z" fill="#99855b"/>
+</svg>
