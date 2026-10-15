@@ -438,3 +438,9 @@ figure, h1, h2, h3, p { margin: 0; }
   h1, h2, h3 { break-after: avoid; }
   p { orphans: 3; widows: 3; }
 }
+
+/* Keep edition navigation usable on narrow screens. */
+@media (max-width: 540px) {
+  .site-nav { gap: 18px; overflow-x: auto; max-width: 100%; padding-bottom: 3px; }
+  .site-nav a { flex-shrink: 0; white-space: nowrap; }
+}

@@ -96,7 +96,7 @@ def original_toc(entries: list[OriginalEntry], rel: str, current: int | None = N
     for entry in entries:
         selected = ' aria-current="page"' if current == entry.number else ""
         links.append(f'<a class="toc-link" data-number="{entry.number}" href="{rel}chapter-{entry.number}.html"{selected}><span>{entry.number:03d}</span> {html.escape(entry.full_title)}</a>')
-    return '<section class="toc-group"><h3>原文 · 按文本顺序</h3>' + "".join(links) + "</section>"
+    return '<section class="toc-group"><h3>新版 · 按文本顺序</h3>' + "".join(links) + "</section>"
 
 
 def load_chapters() -> list[Chapter]:
@@ -248,7 +248,7 @@ def build(output: Path) -> dict:
     output.mkdir(parents=True, exist_ok=True)
     assets = output / "assets"
     assets.mkdir(exist_ok=True)
-    for filename in ("styles.css", "app.js", "cover.svg"):
+    for filename in ("styles.css", "app.js", "cover.svg", "old-reader.js", "old-reader.css"):
         shutil.copyfile(SITE / filename, assets / filename)
     cards = []
     for chapter in chapters:
@@ -260,7 +260,8 @@ def build(output: Path) -> dict:
               "MIN_CHAPTER": "169", "MAX_CHAPTER": "193", "CHAPTER_COUNT": "25",
               "BOOK_HOME": "index.html", "BOOK_CAPTION": "亚斯蓝终篇",
               "BOOK_TITLE": "爵迹 · 亚斯蓝终篇", "BOOK_NOTE": "非官方续篇",
-              "EDITION": "ASLAN / 亚斯蓝终篇", "ORIGINAL_CURRENT": ""}
+              "EDITION": "ASLAN / 亚斯蓝终篇", "ORIGINAL_CURRENT": "", "EDITION_LINKS": ""}
+    write_page(output / "old.html", template("old", {"REL": "./"}))
     write_page(output / "index.html", template("home", common | {"REL": "./", "PAGE_TITLE": "爵迹 · 亚斯蓝终篇", "TOC": toc(chapters, "./"), "WORD_COUNT": f"{total:,}", "CHAPTER_CARDS": "\n".join(cards)}))
     for index, chapter in enumerate(chapters):
         previous = chapters[index - 1] if index else None
@@ -292,7 +293,7 @@ def build(output: Path) -> dict:
     metadata = {"chapters": [{"number": c.number, "title": c.title, "words": c.words, "stage": c.stage, "url": f"chapters/chapter-{c.number}.html"} for c in chapters], "total_words": total}
     write_page(output / "catalog.json", json.dumps(metadata, ensure_ascii=False, indent=2) + "\n")
     original = build_original(output, common)
-    return {"pages": 28 + original["pages"], "chapters": len(chapters), "body_characters": total,
+    return {"pages": 29 + original["pages"], "chapters": len(chapters), "body_characters": total,
             "original_entries": original["entries"], "output": str(output)}
 
 
@@ -301,10 +302,10 @@ def build_original(output: Path, common: dict[str, str]) -> dict:
     count = len(entries)
     values = common | {"BOOK_ID": "original", "MIN_CHAPTER": "1", "MAX_CHAPTER": str(count),
                        "CHAPTER_COUNT": str(count), "BOOK_HOME": "original.html",
-                       "BOOK_CAPTION": "原文 · 郭敬明", "BOOK_TITLE": "爵迹 · 原文",
-                       "BOOK_NOTE": "郭敬明 · 本地文本版", "EDITION": "ORIGINAL / 郭敬明 · 爵迹",
+                       "BOOK_CAPTION": "新版 · 修订连载", "BOOK_TITLE": "爵迹 · 新版",
+                       "BOOK_NOTE": "郭敬明 · 本地修订连载文本", "EDITION": "REVISED / 新版 · 修订连载",
                        "ORIGINAL_CURRENT": ' aria-current="page"',
-                       "DESCRIPTION": "郭敬明《爵迹》原文阅读，收录本地文本的章回及读者附记，支持目录、续读、夜间模式和全文下载。"}
+                       "DESCRIPTION": "郭敬明《爵迹》新版修订连载阅读，使用本地文本，收录至《银色琥珀》及读者附记，与《临界·爵迹》旧版分开阅读。"}
     cards = []
     for entry in entries:
         prose = next((line.strip() for line in entry.body.splitlines() if line.strip() and not line.strip().startswith("【")), "")
@@ -315,14 +316,15 @@ def build_original(output: Path, common: dict[str, str]) -> dict:
     full_source = (SITE / "texts" / "jueji.txt").read_bytes()
     words = len(re.sub(r"\s", "", full_source.decode("utf-8")))
     write_page(output / "original.html", template("original", values | {
-        "REL": "./", "PAGE_TITLE": "爵迹原文 · 郭敬明", "WORD_COUNT": f"{words:,}",
+        "REL": "./", "PAGE_TITLE": "爵迹 · 新版修订连载", "WORD_COUNT": f"{words:,}",
         "CHAPTER_CARDS": "\n".join(cards), "TOC": original_toc(entries, "original/"),
         "PREFACE": plain_text_html(preface)}))
     for index, entry in enumerate(entries):
         previous = entries[index - 1] if index else None
         following = entries[index + 1] if index + 1 < count else None
-        page = values | {"REL": "../", "PAGE_TITLE": html.escape(entry.full_title + " · 爵迹原文"),
-                         "NUMBER": str(entry.number), "CHAPTER_LABEL": "原文阅读" if entry.source_number else "作者附记",
+        page = values | {"REL": "../", "PAGE_TITLE": html.escape(entry.full_title + " · 爵迹新版"),
+                         "EDITION_LINKS": '<nav class="edition-switch" aria-label="原著版本"><a href="../old.html">旧版 · 临界 ↗</a><a href="../original.html" aria-current="page">新版 · 修订连载</a></nav>',
+                         "NUMBER": str(entry.number), "CHAPTER_LABEL": "新版阅读" if entry.source_number else "作者附记",
                          "TITLE": html.escape(entry.full_title), "WORDS": f"{entry.words:,}",
                          "READ_TIME": str(math.ceil(entry.words / 500)), "BODY": plain_text_html(entry.body),
                          "TOC": original_toc(entries, "", entry.number),
@@ -332,7 +334,7 @@ def build_original(output: Path, common: dict[str, str]) -> dict:
                          "NEXT_LABEL": html.escape(following.full_title) if following else "读完本地原文 · 返回目录"}
         write_page(output / "original" / f"chapter-{entry.number}.html", template("chapter", page))
     shutil.copyfile(SITE / "texts" / "jueji.txt", output / "downloads" / "jueji-original.txt")
-    catalog = {"book": "original", "author": "郭敬明", "total_words": words,
+    catalog = {"book": "original", "edition": "revised-serial", "author": "郭敬明", "total_words": words,
                "chapters": [{"number": e.number, "title": e.full_title, "source_number": e.source_number,
                              "words": e.words, "url": f"original/chapter-{e.number}.html"} for e in entries]}
     write_page(output / "original" / "catalog.json", json.dumps(catalog, ensure_ascii=False, indent=2) + "\n")

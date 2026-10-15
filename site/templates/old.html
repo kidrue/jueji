@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="《临界·爵迹》旧版独立阅读入口。打开自己的本地 TXT，生成目录并记住进度；与修订新版和非官方续篇分开阅读。">
+  <meta name="theme-color" content="#f4f1e8">
+  <title>旧版 · 临界·爵迹</title>
+  <link rel="icon" type="image/svg+xml" href="{{REL}}assets/cover.svg">
+  <link rel="stylesheet" href="{{REL}}assets/styles.css">
+  <link rel="stylesheet" href="{{REL}}assets/old-reader.css">
+  <script src="{{REL}}assets/app.js" defer></script>
+  <script src="{{REL}}assets/old-reader.js" defer></script>
+</head>
+<body data-page="local-reader" data-book="old">
+  <a class="skip-link" href="#main">跳至正文</a>
+  <header class="site-header">
+    <a class="wordmark" href="{{REL}}old.html" aria-label="爵迹，返回旧版入口"><span class="wordmark-symbol" aria-hidden="true">爵</span><span>爵迹<span class="wordmark-caption">旧版 · 临界</span></span></a>
+    <nav class="site-nav" aria-label="主要导航"><a href="{{REL}}old.html" aria-current="page">旧版</a><a href="{{REL}}original.html">新版</a><a href="{{REL}}index.html">续篇</a><a href="{{REL}}outline.html">终篇大纲</a><a href="{{REL}}writing.html">写作技能</a></nav>
+    <button class="theme-toggle js-only" id="theme-toggle" type="button" aria-label="切换为夜间阅读" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.2 15.4A8.5 8.5 0 0 1 8.6 3.8a8.5 8.5 0 1 0 11.6 11.6Z"/></svg><span class="theme-label">夜读</span></button>
+  </header>
+  <main id="main">
+    <section class="book-hero old-hero" id="old-intro" aria-labelledby="book-title">
+      <div class="hero-copy">
+        <p class="edition-line"><span class="small-rule" aria-hidden="true"></span>郭敬明 · 原著旧版<span class="edition-number">ORIGINAL EDITION</span></p>
+        <h1 id="book-title">爵<span>迹</span><span class="title-seal" aria-hidden="true">旧</span></h1>
+        <p class="hero-subtitle">回到《临界·爵迹》。</p>
+        <p class="hero-description">为旧版留一页书签。<br class="desktop-break">打开你已有的 TXT，目录与进度由这里记住。</p>
+        <div class="edition-switch" role="navigation" aria-label="原著版本"><a href="{{REL}}old.html" aria-current="page">旧版 · 临界</a><a href="{{REL}}original.html">新版 · 修订连载 <span aria-hidden="true">↗</span></a></div>
+        <div class="hero-actions js-only"><button class="button button-ink" id="open-old-file" type="button">打开旧版 TXT <span aria-hidden="true">＋</span></button><a id="old-resume" class="resume-link" href="#old-reader" hidden>继续阅读 <span aria-hidden="true">→</span></a></div>
+        <input id="old-file" class="visually-hidden" type="file" accept=".txt,text/plain" aria-label="选择旧版 TXT 文件" tabindex="-1">
+        <p class="source-note">正文只保存在当前浏览器，不会上传。请自行确认所选文件属于旧版；更换文件后，阅读进度仍分别保留。</p>
+        <p id="old-status" class="import-status" role="status" aria-live="polite">尚未导入旧版全文。可先查看下方书目。</p>
+        <noscript><p class="import-status">本地 TXT 导入需要开启 JavaScript；新版预生成正文仍可直接阅读。</p></noscript>
+      </div>
+      <div class="old-cover" aria-hidden="true"><span class="old-cover-top">THE ORIGINAL EDITION</span><span class="old-cover-title">临界<span>爵迹</span></span><span class="old-cover-rule"></span><span class="old-cover-bottom">郭敬明<br>Ⅰ · Ⅱ</span></div>
+    </section>
+
+    <div id="old-reader" class="reader-layout old-reader" hidden>
+      <aside class="toc-sidebar" aria-label="旧版文件目录">
+        <div class="toc-title"><a href="#old-intro">旧版 · 本地文件</a><span id="old-entry-count"></span></div>
+        <button id="old-toc-toggle" class="toc-toggle js-only" type="button" aria-expanded="true" aria-controls="old-toc"><span>收起篇目目录</span><span class="toc-toggle-mark" aria-hidden="true">＋</span></button>
+        <div id="old-toc" class="toc-panel"></div>
+        <a class="toc-home" href="#old-intro">更换文件 / 版本说明 <span aria-hidden="true">↑</span></a>
+      </aside>
+      <div class="reader-main">
+        <article class="chapter-article" aria-labelledby="old-chapter-title">
+          <header class="chapter-header"><p class="eyebrow">ORIGINAL EDITION / 旧版</p><p class="chapter-kicker" id="old-file-name"></p><h2 id="old-chapter-title" tabindex="-1"></h2><p class="chapter-details" id="old-chapter-details"></p></header>
+          <div class="reader-tools js-only" aria-label="旧版阅读设置">
+            <div class="font-controls" role="group" aria-label="正文字号"><span>字号</span><button id="font-minus" type="button" aria-label="减小正文字号">A−</button><button id="font-reset" type="button" aria-label="恢复默认正文字号">22</button><button id="font-plus" type="button" aria-label="增大正文字号">A＋</button></div>
+            <div class="progress-info"><label for="old-progress">本篇进度</label><progress id="old-progress" max="100" value="0">0%</progress><span id="old-progress-label">0%</span></div>
+          </div>
+          <div class="chapter-body" id="old-chapter-body"></div>
+          <div class="chapter-end" aria-hidden="true"><span></span>◇<span></span></div>
+          <nav class="chapter-navigation" aria-label="旧版章节翻页"><button id="old-prev" type="button"><span class="page-direction">← 前一篇</span><strong></strong></button><button id="old-next" type="button"><span class="page-direction">后一篇 →</span><strong></strong></button></nav>
+          <p class="keyboard-hint">也可使用键盘 ← → 翻篇</p>
+        </article>
+      </div>
+    </div>
+
+    <section class="chapter-section edition-books" id="edition-notes" aria-labelledby="edition-heading">
+      <div class="section-heading"><div><p class="eyebrow">EDITION NOTES / 版本说明</p><h2 id="edition-heading">同名故事，分版翻阅<span class="heading-dot" aria-hidden="true">。</span></h2></div></div>
+      <p class="source-note">这里的“旧版”指《临界·爵迹》原著版本，“新版”指修订后的《爵迹》。非官方续篇另设入口，不作为原著新版。</p>
+      <div class="edition-book-grid">
+        <article class="edition-book"><span class="edition-book-number">01 / 旧版</span><h3>临界·爵迹 Ⅰ</h3><p>郭敬明 · 长江文艺出版社<br>2010 年 8 月 · ISBN 9787535441768</p><a href="https://book.douban.com/subject/4920037/" target="_blank" rel="noopener noreferrer">书目与购阅渠道 <span aria-hidden="true">↗</span><span class="visually-hidden">，在新标签页打开</span></a></article>
+        <article class="edition-book"><span class="edition-book-number">02 / 旧版</span><h3>临界·爵迹 Ⅱ</h3><p>郭敬明 · 长江文艺出版社<br>2011 年 1 月 · ISBN 9787535445568</p><a href="https://book.douban.com/subject/4920036/" target="_blank" rel="noopener noreferrer">书目与购阅渠道 <span aria-hidden="true">↗</span><span class="visually-hidden">，在新标签页打开</span></a></article>
+        <article class="edition-book"><span class="edition-book-number">03 / 新版</span><h3>爵迹 · 修订连载</h3><p>使用项目已有的本地文本。<br>收录至《银色琥珀》，附读者说明。</p><a href="{{REL}}original.html">前往新版阅读 <span aria-hidden="true">↗</span></a></article>
+      </div>
+      <p class="source-note">书目链接提供版本资料及购阅渠道，不是本网站的全文阅读。当前未内置旧版全文；取得 TXT 后可在页首导入。</p>
+    </section>
+  </main>
+  <footer class="site-footer"><p>爵迹 · 旧版<span>郭敬明 · 本地文件阅读</span></p><div><a href="{{REL}}original.html">切换新版 ↗</a><a href="#old-intro">回到页首 ↑</a></div></footer>
+</body>
+</html>
